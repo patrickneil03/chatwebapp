@@ -1,0 +1,96 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Realtime Chat — Messenger Style</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div id="app">
+    <!-- Join Screen -->
+    <section id="join-screen" class="join-screen">
+      <div class="join-card">
+        <h1>Welcome to Chat</h1>
+        <p class="muted">Join a room and start chatting instantly.</p>
+        <form id="join-form" class="join-form">
+          <input
+            id="displayName"
+            class="input"
+            type="text"
+            placeholder="Your name"
+            required
+          />
+          <input
+            id="roomId"
+            class="input"
+            type="text"
+            placeholder="Room ID (e.g. general)"
+            pattern="[A-Za-z0-9_-]{1,32}"
+            required
+          />
+          <button type="submit" class="btn primary full">Join Chat</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Chat Screen -->
+    <section id="chat-screen" class="chat hidden">
+      <aside class="sidebar">
+        <div class="profile">
+          <div class="avatar">
+            <span id="me-initials">P</span>
+          </div>
+          <div class="profile-details">
+            <div class="name" id="me-name"></div>
+            <div class="room muted small" id="me-room"></div>
+            <div class="online">
+              <h2>Online</h2>
+              <ul id="onlineList" class="online-list"></ul>
+            </div>
+          </div>
+        </div>
+        <button id="leaveBtn" class="btn danger full">Leave Room</button>
+      </aside>
+
+      <main class="chat-area">
+        <header class="chat-header">
+          <div class="status">
+            <span class="dot" id="connDot"></span>
+            <span id="connText">Disconnected</span>
+          </div>
+          <button id="reconnectBtn" class="btn small">Reconnect</button>
+        </header>
+
+        <ul id="messages" class="messages" aria-live="polite"></ul>
+
+        <div id="typing" class="typing muted small hidden">
+          Someone is typing…
+        </div>
+
+        <div class="composer">
+          <input
+            id="messageInput"
+            class="input message-input"
+            type="text"
+            placeholder="Type a message..."
+            autocomplete="off"
+          />
+          <button id="sendBtn" class="btn send-btn">➤</button>
+        </div>
+      </main>
+    </section>
+  </div>
+
+  <!-- Config and App scripts -->
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
