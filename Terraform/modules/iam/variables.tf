@@ -3,3 +3,9 @@ variable "connections_table_arn" {
   type        = string
   
 }
+
+variable "messages_table_arn" {
+  description = "ARN of the DynamoDB messages table"
+  type        = string
+  
+}

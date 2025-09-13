@@ -43,12 +43,14 @@ module "lambda" {
   dynamodb_messages_table_name = module.dynamodb.dynamodb_messages_table_name
   return_message_role_arn = module.iam.return_message_role_arn
   chat_rest_api_execution_arn = module.api.chat_rest_api_execution_arn
- 
+  WEBSOCKET_API_URL = var.WEBSOCKET_API_URL
+  REST_API_BASE_URL = var.REST_API_BASE_URL
 }
 
 module "iam" {
   source = "./modules/iam"
   connections_table_arn = module.dynamodb.connections_table_arn
+  messages_table_arn = module.dynamodb.messages_table_arn
   
 }
 

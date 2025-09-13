@@ -3,6 +3,11 @@ output "connections_table_arn" {
   
 }
 
+output "messages_table_arn" {
+  value = aws_dynamodb_table.messages.arn
+  
+}
+
 output "aws_dynamodb_table_name" {
   value = aws_dynamodb_table.connections.name
   

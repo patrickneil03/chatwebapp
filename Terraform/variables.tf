@@ -18,3 +18,17 @@ variable "chat_domain_name" {
   sensitive = true
   
 }
+
+variable "WEBSOCKET_API_URL" {
+  description = "The WebSocket API URL for the chat application."
+  type        = string
+  sensitive = true
+  
+}
+
+variable "REST_API_BASE_URL" {
+  description = "The REST API Base URL for the chat application."
+  type        = string
+  sensitive = true
+  
+}

@@ -43,3 +43,14 @@ variable "region" {
   
 }
 
+variable "WEBSOCKET_API_URL" {
+  description = "The WebSocket API URL for the chat application."
+  type        = string
+  
+}
+
+variable "REST_API_BASE_URL" {
+  description = "The REST API Base URL for the chat application."
+  type        = string
+  
+}

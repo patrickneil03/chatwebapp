@@ -10,6 +10,10 @@ resource "aws_lambda_function" "ConnectHandler" {
   environment {
     variables = {
       DYNAMODB_TABLE_NAME = var.aws_dynamodb_table_name
+      DYNAMODB_MESSAGES_TABLE_NAME = var.dynamodb_messages_table_name
+      REST_API_BASE_URL = var.REST_API_BASE_URL
+      WEBSOCKET_API_URL = var.WEBSOCKET_API_URL
+      
     }
   }
 }
@@ -43,7 +47,7 @@ resource "aws_lambda_function" "SendMessageHandler" {
     variables = {
       DYNAMODB_TABLE_NAME = var.aws_dynamodb_table_name
       DYNAMODB_MESSAGES_TABLE_NAME = var.dynamodb_messages_table_name
-      WEBSOCKET_API_URL = "https://qhrwltdx8c.execute-api.ap-southeast-1.amazonaws.com/prod"
+      WEBSOCKET_API_URL = var.WEBSOCKET_API_URL
       
     }
   }
@@ -62,6 +66,7 @@ resource "aws_lambda_function" "ReturnMessageHandler" {
     variables = {
       
       DYNAMODB_MESSAGES_TABLE_NAME = var.dynamodb_messages_table_name
+      REST_API_BASE_URL = var.REST_API_BASE_URL
       
     }
   }

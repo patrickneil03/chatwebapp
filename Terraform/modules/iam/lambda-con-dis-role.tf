@@ -20,16 +20,20 @@ resource "aws_iam_role_policy_attachment" "lambda_con_dis_logs" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
+# This policy now grants:
+# • PutItem/DeleteItem/Scan on the connections table
+# • Query on the messages table (including any indexes)
 resource "aws_iam_policy" "lambda_dynamodb_connect" {
-  name        = "lambda-dynamodb-connect"
-  description = "Allow Lambda to access DynamoDB connections table"
+  name        = "lambda-dynamodb-access"
+  description = "Allow Lambda to access DynamoDB connections and messages tables"
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = [
+        Sid    = "ConnectionsTableAccess"
+        Effect = "Allow"
+        Action = [
           "dynamodb:PutItem",
           "dynamodb:DeleteItem",
           "dynamodb:Scan"
@@ -38,17 +42,23 @@ resource "aws_iam_policy" "lambda_dynamodb_connect" {
           var.connections_table_arn,
           "${var.connections_table_arn}/*"
         ]
+      },
+      {
+        Sid    = "MessagesTableReadHistory"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:Query"
+        ]
+        Resource = [
+          var.messages_table_arn,
+          "${var.messages_table_arn}/index/*"
+        ]
       }
     ]
   })
 }
 
-
 resource "aws_iam_role_policy_attachment" "lambda_dynamodb_attach" {
   role       = aws_iam_role.lambda_con_dis_role.name
   policy_arn = aws_iam_policy.lambda_dynamodb_connect.arn
 }
-
-
-
-
